@@ -201,12 +201,11 @@ Specialized models lead on structure elucidation. General-purpose LLMs trail but
 > ⚠️ Placeholder — final citation to be added on publication.
 
 ```bibtex
-@article{nmr_benchmark_2026,
-  title   = {Can AI Help Organic Chemists To Solve NMR?},
-  author  = {TBD},
-  journal = {TBD},
+@article{nmr_arena_benchmark,
+  title   = {Can AI Help Chemists To Solve NMR?},
+  author  = {Kliuev, Fedor and Smirnov, Ivan and Losev, Mikhail A. and Afanasyev, Oleg I. and Chusov, Denis},
   year    = {2026},
-  doi     = {TBD}
+  doi     = {10.26434/chemrxiv.15006195/v1},
 }
 ```
 
