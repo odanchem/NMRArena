@@ -12,8 +12,9 @@ The set contains **105 molecules** across **21 classes** of organic compounds, e
 
 Structure elucidation from NMR — recovering a molecule's structure from its ¹H/¹³C spectra — is a core task in organic chemistry. This repository provides:
 
-- a **curated benchmark** of 105 molecules with clean, single-pair experimental spectra, balanced across 21 functional-group classes and the full molecular-complexity range;
-- **ranked SMILES predictions** from ten systems (six general-purpose LLMs and four specialized NMR models), plus two oracle ensembles derived in the analysis (best-of-LLMs and best-of-specialized);
+- a **curated benchmark** of 105 molecules with clean, single-pair experimental spectra, balanced across 21 functional-group classes and the full molecular-complexity range — this is the set every one of the ten systems was scored on;
+- a **leakage-free set** of 1015 molecules assembled by the same logic — the same five molecular-complexity quintiles and the same 21 classes, capped at 10 molecules per class within each quintile, but excluding every molecule that appears in the training data of **BLIND** or **NMRPeak**. Those two are the strongest specialized systems on the benchmark, and they are the two scored here, so their accuracy on this set is measured on chemistry both are provably seeing for the first time. 
+- **ranked SMILES predictions** from ten systems (six general-purpose LLMs and four specialized NMR models), plus two oracle ensembles derived in the analysis (best-of-LLMs and best-of-specialized) — the six LLMs were swept over the whole benchmark **three times** under identical settings, so their run-to-run spread is measurable rather than assumed;
 - a **reproducible analysis pipeline** that canonicalizes and structurally matches predictions against ground truth and computes Top-1 / Top-10 accuracy, Tanimoto similarity, functional-group fidelity, and per-class breakdowns.
 
 The benchmark is designed so that a molecule counts as *solved* only when a predicted SMILES is the **same structure** as the truth after RDKit canonicalization — not merely a similar-looking string.
@@ -35,10 +36,15 @@ The benchmark is designed so that a molecule counts as *solved* only when a pred
 │   ├── llm_track.ipynb                         # how the general-purpose LLMs were queried
 │   └── predictions_using_local_models.ipynb    # methodology for the specialized models
 ├── results/
-│   ├── combined_predictions_105_final.json     # ranked SMILES from all 10 systems
-│   └── LLM_results/
-│       ├── llm_final_clean.jsonl               # per-call LLM predictions (parsed candidates)
-│       └── llm_final_raw.jsonl                 # per-call LLM predictions (full model output)
+│   ├── combined_predictions_105_final.json     # ranked SMILES from all 10 systems (LLMs: 3 runs each)
+│   ├── combined_predictions_1015_final.json    # leakage-free set: the two strongest specialized models
+│   └── LLM_results/                            # per-call logs, one JSON line per (model × molecule)
+│       ├── llm_final_clean.jsonl               # run 1 — parsed candidates
+│       ├── llm_final_raw.jsonl                 # run 1 — full model output
+│       ├── llm_rep2_clean.jsonl                # run 2 — parsed candidates
+│       ├── llm_rep2_raw.jsonl                  # run 2 — full model output
+│       ├── llm_rep3_clean.jsonl                # run 3 — parsed candidates
+│       └── llm_rep3_raw.jsonl                  # run 3 — full model output
 └── analysis/
     ├── data_analysis.ipynb                     # main analysis: metrics, comparison, figures
     └── to_article/                             # publication-ready figures (PNG)
@@ -48,7 +54,7 @@ The benchmark is designed so that a molecule counts as *solved* only when a pred
 
 - [`analysis/data_analysis.ipynb`](analysis/data_analysis.ipynb) — the main analysis. Loads the combined predictions, canonicalizes and structurally matches predicted vs. true SMILES (RDKit), and computes every reported metric and figure.
 - [`dataset/dataset_preparation.ipynb`](dataset/dataset_preparation.ipynb) — how the 105-molecule benchmark was built: sourcing from the OdanChem spectral database, spectral curation, molecular-complexity scoring, SMARTS-based classification into 21 classes, and complexity-quintile sampling.
-- [`dataset/llm_track.ipynb`](dataset/llm_track.ipynb) — how the six general-purpose LLMs were queried: prompt construction, the OpenRouter sweep (identical settings for every model — temperature 1.0, 24K max tokens, provider-default reasoning), and response parsing into ranked SMILES.
+- [`dataset/llm_track.ipynb`](dataset/llm_track.ipynb) — how the six general-purpose LLMs were queried: prompt construction, the OpenRouter sweep (identical settings for every model — temperature 1.0, 24K max tokens, provider-default reasoning), and response parsing into ranked SMILES. The notebook performs **one** sweep and logs it to `llm_final_raw.jsonl`; the benchmark was swept three times with exactly these settings, the other two logged to `llm_rep2_raw.jsonl` and `llm_rep3_raw.jsonl`.
 - [`dataset/predictions_using_local_models.ipynb`](dataset/predictions_using_local_models.ipynb) — how the specialized models were run: input preprocessing (shift-token conversion for NMRMind; structured peak objects for NMRPeak) and the model weights used.
 
 ---
@@ -72,6 +78,11 @@ import json
 
 data = json.load(open("dataset/dataset_selected_clean_105.json", encoding="utf-8"))
 preds = json.load(open("results/combined_predictions_105_final.json", encoding="utf-8"))
+
+rec = preds["cls_alkanes_haloalkanes"]["1.0"]
+rec["smiles"]        # ground-truth structure
+rec["odan_ai"]       # specialized model: one ranked list of SMILES, best first
+rec["gemini"][0]     # LLM: the ranked list from run 1 (index 0 / 1 / 2 = run 1 / 2 / 3)
 ```
 
 Reproduce the metrics and figures by running [`analysis/data_analysis.ipynb`](analysis/data_analysis.ipynb) top to bottom.
@@ -151,6 +162,24 @@ Each system receives the experimental ¹H and ¹³C peak lists and returns a **b
 
 In `results/combined_predictions_105_final.json` every system is a key on the molecule record. Note that BLIND appears there — and in the analysis notebook — under its internal name `odan_ai`.
 
+The two families store their predictions differently, because only the LLMs were run more than once. A **specialized** key is one ranked list of SMILES; an **LLM** key is a list of three such lists, one per run, run 1 first:
+
+```json
+{
+  "compound_id": "d3dc602d-...",
+  "smiles": "CC(CCI)C",
+  "n_complex": 0.09,
+  "solvent": "CDCl3",
+
+  "odan_ai": ["CC(C)CCI"],
+  "gemini":  [["CC(C)CCI", "CC(C)CCBr", "CC(C)CCCl", "..."],
+              ["CC(C)CCI", "CC(C)CCBr", "CC(C)CCCl", "..."],
+              ["CC(C)CCI", "CC(C)CCTeTeCCC(C)C", "CC(C)CCTeCCC(C)C", "..."]]
+}
+```
+
+Within every list the position is the rank: index 0 is the model's best answer. An empty list means the model returned nothing usable for that spectrum in that run.
+
 
 
 
@@ -175,22 +204,28 @@ In `results/combined_predictions_105_final.json` every system is a key on the mo
 
 Accuracy over the 105 molecules. **Top-1** / **Top-10** = fraction whose true structure is recovered within the first 1 / 10 candidates; **Tanimoto** = mean Top-1 similarity (Morgan radius 2 / ECFP4) between the rank-1 candidate and the truth.
 
+LLM figures are the **mean of the three runs ± 1 SD** between them; the specialized models were run once and have no run-to-run spread.
 
-| Method                   | Kind        | Top-1 (%) | Top-10 (%) | Tanimoto |
-| ------------------------ | ----------- | --------- | ---------- | -------- |
-| BLIND                    | specialized | 48.6      | 68.6       | 0.74     |
-| NMRPeak                  | specialized | 48.6      | 50.5       | 0.70     |
-| NMR-Solver               | specialized | 20.0      | 27.6       | 0.46     |
-| Gemini 3.1 Pro           | LLM         | 20.0      | 23.8       | 0.52     |
-| GPT-5.5                  | LLM         | 12.4      | 18.1       | 0.43     |
-| Grok 4.3                 | LLM         | 11.4      | 13.3       | 0.42     |
-| Qwen3.7-Max              | LLM         | 8.6       | 15.2       | 0.41     |
-| Claude Opus 4.8          | LLM         | 4.8       | 13.3       | 0.39     |
-| DeepSeek-V4-Pro          | LLM         | 1.9       | 2.9        | 0.30     |
-| NMRMind                  | specialized | 0.0       | 1.0        | 0.17     |
+
+| Method                   | Kind        | Top-1 (%)  | Top-10 (%) | Tanimoto        |
+| ------------------------ | ----------- | ---------- | ---------- | --------------- |
+| BLIND                    | specialized | 48.6       | 68.6       | 0.74            |
+| NMRPeak                  | specialized | 48.6       | 50.5       | 0.70            |
+| Gemini 3.1 Pro           | LLM         | 22.2 ± 3.8 | 25.7 ± 3.3 | 0.54 ± 0.04     |
+| NMR-Solver               | specialized | 20.0       | 27.6       | 0.46            |
+| GPT-5.5                  | LLM         | 12.7 ± 2.4 | 17.8 ± 1.5 | 0.43 ± 0.01     |
+| Grok 4.3                 | LLM         | 10.5 ± 1.0 | 11.7 ± 1.5 | 0.41 ± 0.00     |
+| Claude Opus 4.8          | LLM         | 6.7 ± 3.3  | 12.1 ± 2.2 | 0.41 ± 0.02     |
+| DeepSeek-V4-Pro          | LLM         | 2.9 ± 1.6  | 3.8 ± 1.6  | 0.36 ± 0.06     |
+| Qwen3.7-Max              | LLM         | 2.2 ± 0.5  | 2.9 ± 1.0  | 0.68 ± 0.04 \*  |
+| NMRMind                  | specialized | 0.0        | 1.0        | 0.17            |
 
 
 Specialized models lead on structure elucidation. General-purpose LLMs trail but are far from random.
+
+The uncertainty that matters here is the benchmark's size, not the models' instability: the 95% Wilson confidence interval of a rate over 105 molecules (± 3–8 percentage points, drawn on the figure above) is one to six times wider than the spread between runs.
+
+> Qwen3.7-Max exhausts the shared 24K output-token budget on reasoning before it answers, so it returns a parseable structure for only 14 of its 3 × 105 attempts. Its Tanimoto is therefore conditional on those 14 answers and is not comparable to the other rows; DeepSeek-V4-Pro is truncated the same way on most spectra.
 
 ---
 
