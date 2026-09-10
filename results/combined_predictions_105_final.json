@@ -5452,16 +5452,8 @@
         "CC(=O)OCC=C(CO)c1ccc(SOS(=O)(=O)N=S=O)cc1"
       ],
       "blind": [
-        "CC(C)(C)OC(=O)C(CCCO)=[N+]=[N-]",
-        "CC(C)(C)OC(=O)C(CO)CCC#N",
-        "CC(C)(C)OC(=O)C(CCCO)N=[N+]=[N-]",
-        "CC(C)(C)OC(=O)C(CCCO)C(=O)O",
-        "CC(C)(C)OC(=O)N1CCCC1=O",
-        "CC(C)(C)OC(=O)CO",
-        "CC(C)(C)OC(=O)C(=[N+]=[N-])C(CO)CCC#N",
-        "CC(C)(C)OC(=O)C(CO)CCC(=O)O",
-        "CC(C)(C)OC(=O)C(=[N+]=[N-])C(CO)CCO",
-        "CC(C)(C)OC(=O)COCCCC#N"
+        "CC(=O)OC/C=C(\\CO)C1=CC=C(Cl)C=C1",
+        "CC(=O)OCC=C(CO)C1=CC=C(Cl)C=C1"
       ],
       "claude": [
         [
@@ -8900,13 +8892,16 @@
         "Cc1ccccc1C(=O)N(Cc1ccc(Br)cc1)OS(=O)(=O)NC#N"
       ],
       "blind": [
-        "CC1=CN(C2=CC=CC(Cl)=C2)C2=CC=CC=C12",
-        "CC1=CN(C2=CC=CC=C2Br)C2=CC=CC=C12",
-        "CC1=CN(C2=CC=CC=C2C#N)C2=CC=CC=C12",
-        "CC1=CN(C2=CC=CC=C2Cl)C2=CC=CC=C12",
-        "CC1=CN(C2=CC=C(C#N)C=C2)C2=CC=CC=C12",
-        "CC1=CN(C2=CC=C(C#N)C=C2Cl)C2=CC=CC=C12",
-        "CC1=CN(C2=CC=C(Cl)C=C2Br)C2=CC=CC=C12"
+        "CC1=CC=CC=C1C(=O)N(C#N)CC1=CC=CC=C1",
+        "CC1=CC=CC=C1CN(C#N)C(=O)C1=CC=CC=C1",
+        "CC1=CC=CC=C1/C(C#N)=N/CC1=CC=CC=C1",
+        "CC1=CC=CC=C1C1=C(C2=CC=CC=C2)C(=O)OC1",
+        "CC1=C(C2=CC=C(Cl)C=C2)C(=O)N(CC2=CC=CC=C2)C1=O",
+        "CC1=C(C2=CC=CC=C2)C(=O)N(CC2=CC=C(Cl)C=C2)C1=O",
+        "CC1=CC=CC=C1C1=C(C2=CC=CC=C2)C(=O)N(CC#N)C1=O",
+        "CC1=CC=CC=C1C1=C(I)C(=O)N(CC2=CC=CC=C2)C1=O",
+        "CC(=O)N(CC1=CC=CC=C1)/C(C#N)=C/C1=CC=C(Cl)C=C1",
+        "CC(=O)N(CC1=CC=CC=C1)/C(C#N)=C(\\Cl)C1=CC=CC=C1Cl"
       ],
       "claude": [
         [
