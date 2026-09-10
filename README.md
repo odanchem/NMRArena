@@ -39,8 +39,8 @@ The benchmark is designed so that a molecule counts as *solved* only when a pred
 │   ├── combined_predictions_105_final.json     # ranked SMILES from all 10 systems (LLMs: 3 runs each)
 │   ├── combined_predictions_1015_final.json    # leakage-free set: the two strongest specialized models
 │   └── LLM_results/                            # per-call logs, one JSON line per (model × molecule)
-│       ├── llm_final_clean.jsonl               # run 1 — parsed candidates
-│       ├── llm_final_raw.jsonl                 # run 1 — full model output
+│       ├── llm_rep1_clean.jsonl                # run 1 — parsed candidates
+│       ├── llm_rep1_raw.jsonl                  # run 1 — full model output
 │       ├── llm_rep2_clean.jsonl                # run 2 — parsed candidates
 │       ├── llm_rep2_raw.jsonl                  # run 2 — full model output
 │       ├── llm_rep3_clean.jsonl                # run 3 — parsed candidates
@@ -54,7 +54,7 @@ The benchmark is designed so that a molecule counts as *solved* only when a pred
 
 - [`analysis/data_analysis.ipynb`](analysis/data_analysis.ipynb) — the main analysis. Loads the combined predictions, canonicalizes and structurally matches predicted vs. true SMILES (RDKit), and computes every reported metric and figure.
 - [`dataset/dataset_preparation.ipynb`](dataset/dataset_preparation.ipynb) — how the 105-molecule benchmark was built: sourcing from the OdanChem spectral database, spectral curation, molecular-complexity scoring, SMARTS-based classification into 21 classes, and complexity-quintile sampling.
-- [`dataset/llm_track.ipynb`](dataset/llm_track.ipynb) — how the six general-purpose LLMs were queried: prompt construction, the OpenRouter sweep (identical settings for every model — temperature 1.0, 24K max tokens, provider-default reasoning), and response parsing into ranked SMILES. The notebook performs **one** sweep and logs it to `llm_final_raw.jsonl`; the benchmark was swept three times with exactly these settings, the other two logged to `llm_rep2_raw.jsonl` and `llm_rep3_raw.jsonl`.
+- [`dataset/llm_track.ipynb`](dataset/llm_track.ipynb) — how the six general-purpose LLMs were queried: prompt construction, the OpenRouter sweep (identical settings for every model — temperature 1.0, 24K max tokens, provider-default reasoning), and response parsing into ranked SMILES. The notebook performs **one** sweep and logs it to `llm_rep1_raw.jsonl`; the benchmark was swept three times with exactly these settings, the other two logged to `llm_rep2_raw.jsonl` and `llm_rep3_raw.jsonl`.
 - [`dataset/predictions_using_local_models.ipynb`](dataset/predictions_using_local_models.ipynb) — how the specialized models were run: input preprocessing (shift-token conversion for NMRMind; structured peak objects for NMRPeak) and the model weights used.
 
 ---
@@ -81,7 +81,7 @@ preds = json.load(open("results/combined_predictions_105_final.json", encoding="
 
 rec = preds["cls_alkanes_haloalkanes"]["1.0"]
 rec["smiles"]        # ground-truth structure
-rec["odan_ai"]       # specialized model: one ranked list of SMILES, best first
+rec["blind"]         # specialized model: one ranked list of SMILES, best first
 rec["gemini"][0]     # LLM: the ranked list from run 1 (index 0 / 1 / 2 = run 1 / 2 / 3)
 ```
 
@@ -160,7 +160,7 @@ Each system receives the experimental ¹H and ¹³C peak lists and returns a **b
 | NMR-Solver                                     | Web       |
 | [BLIND](https://github.com/nochemi2k/BLIND)    | Web       |
 
-In `results/combined_predictions_105_final.json` every system is a key on the molecule record. Note that BLIND appears there — and in the analysis notebook — under its internal name `odan_ai`.
+In `results/combined_predictions_105_final.json` every system is a key on the molecule record.
 
 The two families store their predictions differently, because only the LLMs were run more than once. A **specialized** key is one ranked list of SMILES; an **LLM** key is a list of three such lists, one per run, run 1 first:
 
@@ -171,7 +171,7 @@ The two families store their predictions differently, because only the LLMs were
   "n_complex": 0.09,
   "solvent": "CDCl3",
 
-  "odan_ai": ["CC(C)CCI"],
+  "blind":   ["CC(C)CCI"],
   "gemini":  [["CC(C)CCI", "CC(C)CCBr", "CC(C)CCCl", "..."],
               ["CC(C)CCI", "CC(C)CCBr", "CC(C)CCCl", "..."],
               ["CC(C)CCI", "CC(C)CCTeTeCCC(C)C", "CC(C)CCTeCCC(C)C", "..."]]
