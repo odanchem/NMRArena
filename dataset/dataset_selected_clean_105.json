@@ -236,13 +236,13 @@
   },
   "cls_alcohols": {
     "1.0": {
-      "compound_id": "746b21d3-d6fd-4427-a456-99cb15405ec7",
-      "publication_id": "7c4c5eb3-b211-422f-8666-e495014cb219",
-      "smiles": "[N+](=C(CCCO)C(OC(C)(C)C)=O)=[N-]",
-      "n_complex": 1.61,
-      "h_nmr": "H_NMR (400 MHz, CDCl3) δ 1.48 (s, 9H), 1.70-1.77 (m, 2H), 2.40 (t, J = 7.0 Hz, 2H), 2.88 (br, 1H), 3.66 (s, 2H)",
-      "c_nmr": "C_NMR (100 MHz, CDCl3) δ 19.7, 28.4, 30.6, 60.6, 81.6, 168.0",
-      "doi": "10.1002/cjoc.201900492"
+      "compound_id": "f9b7c5b3-d9dc-4037-9ba1-96c4ae4e2c73",
+      "publication_id": "03805060-8e2a-43ec-9732-8fb84e7c13f5",
+      "smiles": "CC(OC/C=C(/c1ccc(Cl)cc1)\\CO)=O",
+      "n_complex": 2.26,
+      "h_nmr": "H_NMR (400 MHz, CDCl3) δ 2.08 (s, 3H), 2.49-2.54 (m, 1H), 4.56 (d, J = 6.0 Hz, 2H), 4.86 (d, J = 7.2 Hz, 2H), 5.90 (t, J = 7.2 Hz, 1H), 7.31 (d, J = 8.6 Hz, 2H), 7.44 (d, J = 8.6 Hz, 2H)",
+      "c_nmr": "C_NMR (100 MHz, CDCl3) δ 21.1, 59.9, 61.1, 124.7, 127.8, 128.7, 133.9, 138.6, 142.8, 171.5",
+      "doi": "10.1246/bcsj.20150303"
     },
     "2.0": {
       "compound_id": "3c3a941f-a104-400a-9d47-4418663d5bfd",
