@@ -225,7 +225,7 @@ Specialized models lead on structure elucidation. General-purpose LLMs trail but
 
 The uncertainty that matters here is the benchmark's size, not the models' instability: the 95% Wilson confidence interval of a rate over 105 molecules (± 3–8 percentage points, drawn on the figure above) is one to six times wider than the spread between runs.
 
-> Qwen3.7-Max exhausts the shared 24K output-token budget on reasoning before it answers, so it returns a parseable structure for only 14 of its 3 × 105 attempts. Its Tanimoto is therefore conditional on those 14 answers and is not comparable to the other rows; DeepSeek-V4-Pro is truncated the same way on most spectra.
+> Qwen3.7-Max exhausts the shared 24K output-token budget on reasoning before it answers, so it returns a valid structure for only 12 of its 3 × 105 attempts. Its Tanimoto is therefore conditional on those 12 answers and is not comparable to the other rows; DeepSeek-V4-Pro is truncated the same way on most spectra.
 
 ---
 
