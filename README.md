@@ -204,7 +204,7 @@ Within every list the position is the rank: index 0 is the model's best answer. 
 
 Accuracy over the 105 molecules. **Top-1** / **Top-10** = fraction whose true structure is recovered within the first 1 / 10 candidates; **Tanimoto** = mean Top-1 similarity (Morgan radius 2 / ECFP4) between the rank-1 candidate and the truth.
 
-LLM figures are the **mean of the three runs ± 1 SD** between them; the specialized models were run once and have no run-to-run spread.
+LLM figures are the **mean of the three runs ± 1 SD** between them; the specialized models were run once and have no significant run-to-run spread.
 
 
 | Method                   | Kind        | Top-1 (%)  | Top-10 (%) | Tanimoto        |
