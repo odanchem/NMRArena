@@ -209,23 +209,23 @@ LLM figures are the **mean of the three runs ± 1 SD** between them; the special
 
 | Method                   | Kind        | Top-1 (%)  | Top-10 (%) | Tanimoto        |
 | ------------------------ | ----------- | ---------- | ---------- | --------------- |
-| BLIND                    | specialized | 48.6       | 68.6       | 0.74            |
-| NMRPeak                  | specialized | 48.6       | 50.5       | 0.70            |
-| Gemini 3.1 Pro           | LLM         | 22.2 ± 3.8 | 25.7 ± 3.3 | 0.54 ± 0.04     |
-| NMR-Solver               | specialized | 20.0       | 27.6       | 0.46            |
-| GPT-5.5                  | LLM         | 12.7 ± 2.4 | 17.8 ± 1.5 | 0.43 ± 0.01     |
-| Grok 4.3                 | LLM         | 10.5 ± 1.0 | 11.7 ± 1.5 | 0.41 ± 0.00     |
-| Claude Opus 4.8          | LLM         | 6.7 ± 3.3  | 12.1 ± 2.2 | 0.41 ± 0.02     |
-| DeepSeek-V4-Pro          | LLM         | 2.9 ± 1.6  | 3.8 ± 1.6  | 0.36 ± 0.06     |
-| Qwen3.7-Max              | LLM         | 2.2 ± 0.5  | 2.9 ± 1.0  | 0.68 ± 0.04 \*  |
+| NMRPeak                  | specialized | 54.3       | 55.2       | 0.74            |
+| BLIND                    | specialized | 51.4       | 71.4       | 0.76            |
+| Gemini 3.1 Pro           | LLM         | 27.6 ± 1.9 | 32.4 ± 1.9 | 0.59 ± 0.02     |
+| NMR-Solver               | specialized | 24.8       | 36.2       | 0.53            |
+| GPT-5.5                  | LLM         | 14.9 ± 1.1 | 21.3 ± 0.5 | 0.46 ± 0.01     |
+| Grok 4.3                 | LLM         | 11.7 ± 1.5 | 13.3 ± 1.6 | 0.43 ± 0.00     |
+| Claude Opus 4.8          | LLM         | 9.2 ± 3.6  | 14.6 ± 2.4 | 0.43 ± 0.02     |
+| DeepSeek-V4-Pro          | LLM         | 2.9 ± 1.6  | 3.8 ± 1.6  | 0.37 ± 0.06     |
+| Qwen3.7-Max              | LLM         | 2.2 ± 0.5  | 2.9 ± 1.0  | 0.89 ± 0.10 \*  |
 | NMRMind                  | specialized | 0.0        | 1.0        | 0.17            |
 
 
 Specialized models lead on structure elucidation. General-purpose LLMs trail but are far from random.
 
-The uncertainty that matters here is the benchmark's size, not the models' instability: the 95% Wilson confidence interval of a rate over 105 molecules (± 3–8 percentage points, drawn on the figure above) is one to six times wider than the spread between runs.
+The uncertainty that matters here is the benchmark's size, not the models' instability: the 95% Wilson confidence interval of a rate over 105 molecules (± 2–9 percentage points, drawn on the figure above) is one and a half to six times wider than the spread between runs.
 
-> Qwen3.7-Max exhausts the shared 24K output-token budget on reasoning before it answers, so it returns a valid structure for only 12 of its 3 × 105 attempts. Its Tanimoto is therefore conditional on those 12 answers and is not comparable to the other rows; DeepSeek-V4-Pro is truncated the same way on most spectra.
+> Qwen3.7-Max exhausts the shared 24K output-token budget on reasoning before it answers, so it returns a valid structure for only 9 of its 3 × 105 attempts. Its Tanimoto is therefore conditional on those 9 answers and is not comparable to the other rows; DeepSeek-V4-Pro is truncated the same way on most spectra, answering on 80 of its 315.
 
 ---
 
