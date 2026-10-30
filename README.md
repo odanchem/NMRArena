@@ -216,9 +216,9 @@ LLM figures are the **mean of the three runs ± 1 SD** between them; the special
 | GPT-5.5                  | LLM         | 14.9 ± 1.1 | 21.3 ± 0.5 | 0.46 ± 0.01     |
 | Grok 4.3                 | LLM         | 11.7 ± 1.5 | 13.3 ± 1.6 | 0.43 ± 0.00     |
 | Claude Opus 4.8          | LLM         | 9.2 ± 3.6  | 14.6 ± 2.4 | 0.43 ± 0.02     |
+| NMRMind                  | specialized | 8.6        | 12.4       | 0.37            |
 | DeepSeek-V4-Pro          | LLM         | 2.9 ± 1.6  | 3.8 ± 1.6  | 0.37 ± 0.06     |
 | Qwen3.7-Max              | LLM         | 2.2 ± 0.5  | 2.9 ± 1.0  | 0.89 ± 0.10 \*  |
-| NMRMind                  | specialized | 0.0        | 1.0        | 0.17            |
 
 
 Specialized models lead on structure elucidation. General-purpose LLMs trail but are far from random.
