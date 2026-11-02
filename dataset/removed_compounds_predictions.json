@@ -6,16 +6,16 @@
       "n_complex": 1.61,
       "solvent": "CDCl3",
       "nmrmind": [
-        "O1CC2CCCC(C1)C2C(=O)OC(C)(C)C",
-        "CC(C)(C)OC(=O)C1CCCC(C(=O)OC(C)(C)C)N1",
-        "C1CC2COCC(C1)C2C(=O)OC(C)(C)C",
-        "C1(=O)OC(C)(C)C2CCCC1N2",
-        "C1CCC2COC1C2C(=O)OC(C)(C)C",
-        "C1CCC2CN(C(=O)OC(C)(C)C)CC12",
-        "CC(C)(C)OC(=O)C1(N)C2CCCC1COC2",
-        "CC(C)(C)OC(=O)C12CCCC1(C(=O)OC(C)(C)C)C2",
-        "C1CCC2CN(C(=O)OC(C)(C)C)CC2C1",
-        "O1CC2CCCC(C1)C2N"
+        "C(O)C1CC1(C(=O)OC(C)(C)C)C(=O)OC(C)(C)C",
+        "C1CC(C(=O)OC(C)(C)C)N1C",
+        "OCC1CC1(C(=O)OC(C)(C)C)C(=O)OC(C)(C)C",
+        "C1(C(=O)OC(C)(C)C)CC1=NOC",
+        "C(C)(C)(C)OC(=O)C1CC1=NOC",
+        "O=C(OC(C)(C)C)C1CC1=NOC",
+        "C1(C(=O)OC(C)(C)C)CC1(Br)CCO",
+        "C(=O)(OC(C)(C)C)C1CC1(Br)CCO",
+        "C(C)(C)(C)OC(=O)C1CC1(Br)CCO",
+        "C(O)C1CC1(C(=O)OC(C)(C)C)[N+](=O)[O-]"
       ],
       "nmrpeak": [
         "CC(C)(C)OC(=O)C[Se]CCCO",
@@ -207,7 +207,10 @@
           "CC(C)(C)OCCOC(=O)C",
           "CC(C)(C)OC(=O)COCC"
         ]
-      ]
+      ],
+      "h_nmr": "H_NMR (400 MHz, CDCl3) δ 1.48 (s, 9H), 1.70-1.77 (m, 2H), 2.40 (t, J = 7.0 Hz, 2H), 2.88 (br, 1H), 3.66 (s, 2H)",
+      "c_nmr": "C_NMR (100 MHz, CDCl3) δ 19.7, 28.4, 30.6, 60.6, 81.6, 168.0",
+      "doi": "10.1002/cjoc.201900492"
     }
   },
   "cls_nitriles": {
@@ -217,16 +220,16 @@
       "n_complex": 3.36,
       "solvent": "CDCl3",
       "nmrmind": [
-        "c1(C)c(-c2ccccc2)[nH]c(-c2ccccc2)c1-c1c(C)[nH]c2ccccc12",
-        "c1ccc2c(c1)[nH]c1c2ccc2[nH]c(-c3ccccc3)c(C)c21",
-        "c12ccccc1c(C)c(-c1[nH]c(-c3[nH]c4ccccc4c3C)c(-c3ccccc3)c1-c1ccccc1)[nH]2",
-        "c1(-c2ccccc2)[nH]c(-c2ccccc2)c(-c2c(C)[nH]c3ccccc23)c1C",
-        "c1(-c2ccccc2)[nH]c(-c2ccccc2)c(C)c1-c1c(C)[nH]c2ccccc12",
-        "c12ccccc1c(C)c(-c1[nH]c(-c3[nH]c4ccccc4c3C)c(-c3ccccc3)c1C#N)[nH]2",
-        "c1(-c2ccccc2)[nH]c(-c2c(C)[nH]c3ccccc23)c(-c2ccccc2)c1C",
-        "c12ccccc1c(C)c(-c1[nH]c(-c3c(C)[nH]c4ccccc34)c(-c3ccccc3)c1C#N)[nH]2",
-        "c1ccc2c(c1)[nH]c1c2ccc2[nH]c(C)c(-c3ccccc3)c21",
-        "c12ccccc1c(C)c(-c1[nH]c(-c3c(C)[nH]c4ccccc34)c(-c3ccccc3)c1-c1ccccc1)[nH]2"
+        "[nH]1c(-c2c[nH]c3ccccc23)c(C)c2ccccc12",
+        "c12ccccc1[nH]c(-c1c[nH]c3ccccc13)c2C",
+        "c1ccc2[nH]c(-c3c[nH]c4ccccc34)c(C)c2c1",
+        "c1cccc2[nH]c(-c3c[nH]c4ccccc34)c(C)c12",
+        "c1ccc2c(C)c(-c3c[nH]c4ccccc34)[nH]c2c1",
+        "c12ccccc1c(C)c(-c1c[nH]c3ccccc13)[nH]2",
+        "c1cccc2c(C)c(-c3c[nH]c4ccccc34)[nH]c12",
+        "c12ccccc1c(-c1ncc(-c3c[nH]c4ccc(Br)cc34)[nH]1)c(C)[nH]2",
+        "c12ccccc1[nH]c(C)c2-c1ncc(-c2c[nH]c3ccc(Br)cc23)[nH]1",
+        "c1cccc2[nH]c(C)c(-c3ncc(-c4c[nH]c5ccc(Br)cc45)[nH]3)c12"
       ],
       "nmrpeak": [
         "Cc1cn(-c2cccc(Cl)c2)c2ccccc12",
@@ -433,7 +436,10 @@
         [],
         [],
         []
-      ]
+      ],
+      "h_nmr": "H_NMR (300 MHz, CDCl3) δ 7.76-7.64 (m, 2H), 7.62-7.59 (m, 1H), 7.46 (dt, J = 1.2, 6.6 Hz, 1H), 7.35 (dd, J = 1.5, 6.3 Hz, 1H), 7.33 (dd, J = 2.7, 3.9 Hz, 1H), 7.31-7.22 (m, 3H), 2.43 (s, 3H)",
+      "c_nmr": "C_NMR (75 MHz, CDCl3) δ 142.2, 136.3, 134.5, 133.8, 129.9, 127.0, 126.8, 125.5, 122.8, 120.6, 119.4, 114.2, 110.2, 109.3, 9.6",
+      "doi": "10.3998/ark.5550190.0014.219"
     }
   }
 }

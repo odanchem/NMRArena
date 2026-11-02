@@ -31,6 +31,8 @@ The benchmark is designed so that a molecule counts as *solved* only when a pred
 ├── LICENSE
 ├── dataset/
 │   ├── dataset_selected_clean_105.json         # the benchmark: 105 molecules + ¹H/¹³C spectra
+│   ├── dataset_selected_clean_1015.json        # the leakage-free set: 1015 molecules + ¹H/¹³C spectra
+│   ├── removed_compounds_predictions.json      # the two compounds of the missing-¹³C probe: spectra + all predictions
 │   ├── complexities_nmr_challenge.json         # complexity scores of the external NMR-Challenge set
 │   ├── dataset_preparation.ipynb               # how the benchmark was assembled
 │   ├── llm_track.ipynb                         # how the general-purpose LLMs were queried
